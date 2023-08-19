@@ -6,7 +6,8 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/*.bk": true,
-    "**/.turbo": true
+    "**/.turbo": true,
+    "**/*.map": true
   },
   "[typescript]": {
     "editor.formatOnSave": true
