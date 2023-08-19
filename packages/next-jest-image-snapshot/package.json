@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build:tsc": "tsc"
+  },
   "keywords": [],
   "author": "강동윤 <kdy1997.dev@gmail.com>",
   "repository": {

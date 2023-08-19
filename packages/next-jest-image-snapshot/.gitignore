@@ -1,7 +1,6 @@
-lib/
 yarn.lock
 node_modules
 _/
-cjs/
-src/
 *.tgz
+*.js
+*.map
