@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.11.1"
   }
 }
