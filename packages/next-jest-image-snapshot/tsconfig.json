@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2019",             
+    "target": "es2019",
     "useDefineForClassFields": true,
-    "module": "commonjs",                        
-    "baseUrl": "./",                             
-    "paths": {},                                 
-    "resolveJsonModule": true,                   
+    "module": "commonjs",
+    "baseUrl": "./",
+    "paths": {},
+    "resolveJsonModule": true,
     "declaration": true,
-    "sourceMap": true, 
-    "downlevelIteration": true,  
-    "esModuleInterop": true,                  
-    "forceConsistentCasingInFileNames": true, 
-    "strict": true,                                  
-    "skipLibCheck": true       ,
-    "rootDir": "./lib"                         
-  },
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": "./lib"
+  }
 }
