@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "topo": {
+      "dependsOn": ["^topo"]
+    },
+    "build:tsc": {
+      "dependsOn": ["topo"],
+      "inputs": ["lib/**/*.ts", "lib/**/*.tsx"],
+      "outputs": ["lib/**/*.js", "lib/**/*.d.ts", "lib/**/*.map"]
+    },
+    "build": {
+      "dependsOn": ["build:tsc"]
+    },
+
+    "lint": {},
+    "test": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:ci": {
+      "dependsOn": ["build:tsc"]
+    }
+  }
+}
