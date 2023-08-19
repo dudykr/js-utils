@@ -1,0 +1,32 @@
+{
+  "name": "next-jest-image-snapshot",
+  "packageManager": "pnpm@8.6.3",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:tsc": "tsc"
+  },
+  "keywords": [],
+  "author": "강동윤 <kdy1997.dev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dudykr/next-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dudykr/next-utils/issues"
+  },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "next": "^13.4.19",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "selenium-webdriver": "^4.11.1"
+  }
+}
