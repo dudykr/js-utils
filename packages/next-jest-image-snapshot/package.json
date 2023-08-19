@@ -5,7 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:tsc": "tsc"
+    "build:tsc": "tsc",
+    "build": "true",
+    "test": "jest",
+    "test:ci": "jest --ci"
   },
   "keywords": [],
   "author": "강동윤 <kdy1997.dev@gmail.com>",
