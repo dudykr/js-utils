@@ -12,4 +12,8 @@ export class NextTestServer {
 
     return new NextTestServer(next);
   }
+
+  getUrl(pathname: string): string {
+    return `http://${this.next.hostname}:${this.next.port}${pathname}`;
+  }
 }
