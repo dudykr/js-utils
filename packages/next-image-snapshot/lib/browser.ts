@@ -1,3 +1,4 @@
+import { RenderedPage } from "lib";
 import { NextTestServer } from "./next-server";
 import { ThenableWebDriver } from "selenium-webdriver";
 
@@ -10,7 +11,9 @@ export class BrowserInstance {
     private readonly driver: Awaited<ThenableWebDriver>,
   ) {}
 
-  public async render(pathname: string) {
+  public async render(pathname: string): Promise<RenderedPage> {
     console.log(`Rendering ${pathname}...`);
+
+    await this.driver.get(this.server.getUrl(pathname));
   }
 }
