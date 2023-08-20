@@ -16,12 +16,12 @@ export interface RenderedPage {}
 
 export async function renderPage<P extends NextNormalPage>(
   page: () => Promise<P>,
-) {
+): Promise<RenderedPage> {
   await page();
 }
 
 export async function renderAppPage<P extends NextAppPage>(
   page: () => Promise<P>,
-) {
+): Promise<RenderedPage> {
   await page();
 }
