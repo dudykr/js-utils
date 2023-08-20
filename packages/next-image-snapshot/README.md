@@ -1,4 +1,4 @@
-# next-jest-image-snapshot
+# next-image-snapshot
 
 ## Usage
 

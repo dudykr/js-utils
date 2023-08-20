@@ -1,5 +1,5 @@
 {
-  "name": "next-jest-image-snapshot",
+  "name": "next-image-snapshot",
   "packageManager": "pnpm@8.6.3",
   "version": "0.1.0",
   "description": "",
