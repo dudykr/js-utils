@@ -9,4 +9,8 @@ export class BrowserInstance {
     private readonly server: NextTestServer,
     private readonly driver: Awaited<ThenableWebDriver>,
   ) {}
+
+  public async render(pathname: string) {
+    console.log(`Rendering ${pathname}...`);
+  }
 }
