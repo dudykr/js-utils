@@ -15,5 +15,7 @@ export class BrowserInstance {
     console.log(`Rendering ${pathname}...`);
 
     await this.driver.get(this.server.getUrl(pathname));
+
+    return {};
   }
 }
