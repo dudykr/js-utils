@@ -7,8 +7,14 @@ export class NextTestServer {
   public static async create(options: Exclude<NextServerOptions, "port">) {
     const next = new NextServer({
       ...options,
+      conf: {
+        productionBrowserSourceMaps: true,
+        ...options.conf,
+      },
       port: getRandomInt(10000, 65000),
     });
+
+    await next.prepare();
 
     return new NextTestServer(next);
   }
