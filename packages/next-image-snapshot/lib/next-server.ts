@@ -4,7 +4,8 @@ import { getRandomInt } from "./util";
 export class NextTestServer {
   private constructor(private readonly next: NextServer) {}
 
-  public static async create(options: Exclude<NextServerOptions, "port">) {
+  public static async create(options?: Exclude<NextServerOptions, "port">) {
+    options = options ?? {};
     const next = new NextServer({
       ...options,
       conf: {
@@ -21,5 +22,9 @@ export class NextTestServer {
 
   getUrl(pathname: string): string {
     return `http://${this.next.hostname}:${this.next.port}${pathname}`;
+  }
+
+  async [Symbol.asyncDispose]() {
+    await this.next.close();
   }
 }
