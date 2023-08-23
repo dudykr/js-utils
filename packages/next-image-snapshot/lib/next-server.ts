@@ -12,13 +12,15 @@ export class NextTestServer {
     options = options ?? {};
     options.port = getRandomInt(3000, 65000);
 
-    console.log(`Starting a next.js app at ${options.dir}`);
+    console.log(
+      `Starting a next.js app at ${options.dir} at http://localhost:${options.port}`,
+    );
 
     const app = (await spawnAsync(
       "node",
       ["node_modules/next/dist/bin/next", "dev", "-p", options.port.toString()],
       {
-        stdio: ["pipe", "inherit", "inherit"],
+        stdio: ["ignore", "inherit", "inherit"],
         cwd: options.dir,
       },
     )) as ChildProcess;
