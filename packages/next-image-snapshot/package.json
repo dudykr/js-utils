@@ -25,6 +25,7 @@
     "access": "public"
   },
   "devDependencies": {
+    "@jest/globals": "^29.6.3",
     "@swc/jest": "^0.2.29",
     "@types/selenium-webdriver": "^4.1.15",
     "cross-env": "^7.0.3",
