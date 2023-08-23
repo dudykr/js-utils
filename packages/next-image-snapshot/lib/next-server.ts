@@ -33,6 +33,5 @@ export class NextTestServer {
   async close() {
     console.log(`Closing a next.js app at ${this.next.options.dir}`);
     await this.next.close();
-    console.log(`Closed a next.js app at ${this.next.options.dir}`);
   }
 }

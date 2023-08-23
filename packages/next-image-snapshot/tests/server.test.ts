@@ -13,8 +13,7 @@ describe("NextTestServer", () => {
 
   describe("[Symbol.dispose]", () => {
     it("works with using", () => {
-      // console.log(`Url: ${server.getUrl("/")}`);
-      console.log(`Url`);
+      console.log(`Url: ${server.getUrl("/")}`);
     });
   });
 
