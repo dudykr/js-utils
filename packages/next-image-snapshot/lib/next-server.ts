@@ -27,6 +27,10 @@ export class NextTestServer {
   }
 
   async [Symbol.asyncDispose]() {
+    await this.close();
+  }
+
+  async close() {
     await this.next.close();
   }
 }

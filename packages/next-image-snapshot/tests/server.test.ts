@@ -1,4 +1,4 @@
-import { describe, it, beforeAll } from "@jest/globals";
+import { describe, it, beforeAll, afterAll } from "@jest/globals";
 import { NextTestServer } from "../lib/next-server.ts";
 
 describe("NextTestServer", () => {
@@ -9,6 +9,10 @@ describe("NextTestServer", () => {
       dir: "./examples/next-app",
       dev: true,
     });
+  });
+
+  afterAll(async () => {
+    await server.close();
   });
 
   describe("[Symbol.dispose]", () => {
