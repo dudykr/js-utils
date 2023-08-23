@@ -10,7 +10,7 @@ export class NextTestServer {
 
   public static async create(options?: Exclude<NextServerOptions, "port">) {
     options = options ?? {};
-    options.port = getRandomInt(3000, 4000);
+    options.port = getRandomInt(3000, 65000);
 
     console.log(`Starting a next.js app at ${options.dir}`);
 
