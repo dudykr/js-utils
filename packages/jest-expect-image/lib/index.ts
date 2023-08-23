@@ -13,7 +13,8 @@ type MatcherType<T> = T extends (
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
-    interface Matchers {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface Matchers<R> {
       toMatchImageSnapshot: MatcherType<typeof toMatchImageSnapshot>;
     }
   }
