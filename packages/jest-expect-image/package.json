@@ -1,0 +1,27 @@
+{
+  "name": "jest-expect-image",
+  "packageManager": "pnpm@8.6.3",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:tsc": "tsc",
+    "build": "true",
+    "test": "jest --detectOpenHandles --no-cache",
+    "test:ci": "jest --detectOpenHandles --no-cache --ci"
+  },
+  "keywords": [],
+  "author": "강동윤 <kdy1997.dev@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dudykr/js-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dudykr/js-utils/issues"
+  },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}
