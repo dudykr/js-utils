@@ -1,6 +1,7 @@
 import { NextServerOptions } from "next/dist/server/next";
 import { getRandomInt } from "./util.ts";
 import { ChildProcess, spawn } from "child_process";
+import waitPort from "wait-port";
 
 export class NextTestServer {
   private constructor(
@@ -11,6 +12,7 @@ export class NextTestServer {
   public static async create(options?: Exclude<NextServerOptions, "port">) {
     options = options ?? {};
     options.port = getRandomInt(3000, 65000);
+    options.hostname ??= "localhost";
 
     console.log(
       `Starting a next.js app at ${options.dir} at http://localhost:${options.port}`,
@@ -25,6 +27,11 @@ export class NextTestServer {
         windowsHide: true,
       },
     );
+
+    await waitPort({
+      host: options.hostname,
+      port: options.port,
+    });
 
     const s = new NextTestServer(app, options);
 

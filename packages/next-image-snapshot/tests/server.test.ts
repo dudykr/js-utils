@@ -12,8 +12,13 @@ describe("NextTestServer", () => {
   });
 
   describe("[Symbol.dispose]", () => {
-    it("works with using", () => {
+    it("works with using", async () => {
       console.log(`Url: ${server.getUrl("/")}`);
+
+      await page.goto(server.getUrl("/"));
+      const image = await page.screenshot();
+
+      expect(image).toMatchImageSnapshot();
     });
   });
 
