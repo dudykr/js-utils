@@ -1,5 +1,5 @@
 import { NextServerOptions } from "next/dist/server/next";
-import { getRandomInt } from "./util.ts";
+import { getRandomInt } from "./util.js";
 import { ChildProcess, spawn } from "child_process";
 import waitPort from "wait-port";
 

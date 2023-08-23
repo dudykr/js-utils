@@ -18,10 +18,14 @@ export async function renderPage<P extends NextNormalPage>(
   page: () => Promise<P>,
 ): Promise<RenderedPage> {
   await page();
+
+  return {};
 }
 
 export async function renderAppPage<P extends NextAppPage>(
   page: () => Promise<P>,
 ): Promise<RenderedPage> {
   await page();
+
+  return {};
 }

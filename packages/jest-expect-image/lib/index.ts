@@ -1,3 +1,5 @@
+function toMatchImageSnapshot() {}
+
 type MatcherType<T> = T extends (
   instance: any,
   ...args: infer TArgs

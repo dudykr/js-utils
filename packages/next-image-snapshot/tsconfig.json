@@ -15,5 +15,5 @@
     "skipLibCheck": true,
     "rootDir": "./lib"
   },
-  "exclude": ["examples"]
+  "exclude": ["examples", "tests"]
 }

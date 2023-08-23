@@ -3,7 +3,7 @@
   "packageManager": "pnpm@8.6.3",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build:tsc": "tsc",
     "build": "true",
