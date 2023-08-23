@@ -1,6 +1,6 @@
 import { NextServerOptions } from "next/dist/server/next";
-import { getRandomInt, spawnAsync } from "./util.ts";
-import { ChildProcess } from "child_process";
+import { getRandomInt } from "./util.ts";
+import { ChildProcess, spawn } from "child_process";
 
 export class NextTestServer {
   private constructor(
@@ -16,7 +16,7 @@ export class NextTestServer {
       `Starting a next.js app at ${options.dir} at http://localhost:${options.port}`,
     );
 
-    const app = (await spawnAsync(
+    const app = spawn(
       "node",
       ["node_modules/next/dist/bin/next", "dev", "-p", options.port.toString()],
       {
@@ -25,7 +25,7 @@ export class NextTestServer {
         windowsHide: true,
         timeout: 10000,
       },
-    )) as ChildProcess;
+    );
     console.log(app);
 
     const s = new NextTestServer(app, options);
