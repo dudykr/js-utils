@@ -7,3 +7,4 @@ package-lock.json
 *.tgz
 .dprint.json
 out/
+tests/
