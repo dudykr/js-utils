@@ -606,15 +606,6 @@ packages:
     dependencies:
       jest-get-type: 29.6.3
 
-  /@jest/expect@29.6.2:
-    resolution: {integrity: sha512-m6DrEJxVKjkELTVAztTLyS/7C92Y2b0VYqmDROYKLLALHn8T/04yPs70NADUYPrV3ruI+H3J0iUIuhkjp7vkfg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      expect: 29.6.2
-      jest-snapshot: 29.6.2
-    transitivePeerDependencies:
-      - supports-color
-
   /@jest/expect@29.6.3:
     resolution: {integrity: sha512-Ic08XbI2jlg6rECy+CGwk/8NDa6VE7UmIG6++9OTPAMnQmNGY28hu69Nf629CWv6T7YMODLbONxDFKdmQeI9FA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -3274,7 +3265,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/environment': 29.6.2
-      '@jest/expect': 29.6.2
+      '@jest/expect': 29.6.3
       '@jest/test-result': 29.6.2
       '@jest/types': 29.6.1
       '@types/node': 20.5.3
