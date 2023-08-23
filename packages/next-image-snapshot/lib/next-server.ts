@@ -1,4 +1,4 @@
-import { NextServer, NextServerOptions } from "next/dist/server/next";
+import next, { NextServer, NextServerOptions } from "next/dist/server/next";
 import { getRandomInt } from "./util";
 
 export class NextTestServer {
@@ -6,7 +6,7 @@ export class NextTestServer {
 
   public static async create(options?: Exclude<NextServerOptions, "port">) {
     options = options ?? {};
-    const next = new NextServer({
+    const app = next({
       ...options,
       conf: {
         productionBrowserSourceMaps: true,
@@ -15,9 +15,9 @@ export class NextTestServer {
       port: getRandomInt(10000, 65000),
     });
 
-    await next.prepare();
+    await app.prepare();
 
-    return new NextTestServer(next);
+    return new NextTestServer(app);
   }
 
   getUrl(pathname: string): string {
