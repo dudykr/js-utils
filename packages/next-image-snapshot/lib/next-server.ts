@@ -19,6 +19,8 @@ export class NextTestServer {
 
     await app.prepare();
 
+    console.log("Next.js app started");
+
     return new NextTestServer(app);
   }
 
