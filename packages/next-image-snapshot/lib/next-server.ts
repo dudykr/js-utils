@@ -15,7 +15,7 @@ export class NextTestServer {
       port: getRandomInt(10000, 65000),
     });
 
-    console.log(app.options.dir);
+    console.log(`Starting a next.js app at ${app.options.dir}`);
 
     await app.prepare();
 
