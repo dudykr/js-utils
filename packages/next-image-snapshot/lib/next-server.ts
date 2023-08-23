@@ -14,16 +14,18 @@ export class NextTestServer {
 
     console.log(`Starting a next.js app at ${options.dir}`);
 
-    const app = await spawnAsync(
+    const app = (await spawnAsync(
       "node",
       ["node_modules/next/dist/bin/next", "dev", "-p", options.port.toString()],
       {
-        stdio: "inherit",
+        stdio: ["pipe", "inherit", "inherit"],
         cwd: options.dir,
       },
-    );
+    )) as ChildProcess;
 
-    const s = new NextTestServer(app as ChildProcess, options);
+    app.stdin?.end();
+
+    const s = new NextTestServer(app, options);
 
     console.log(`Next.js app is running at ${s.getUrl("/")}`);
 
