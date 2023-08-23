@@ -14,5 +14,6 @@
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "./lib"
-  }
+  },
+  "exclude": ["examples"]
 }
