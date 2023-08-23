@@ -11,8 +11,8 @@ describe("NextTestServer", () => {
     });
   });
 
-  describe("[Symbol.dispose]", () => {
-    it("works with using", async () => {
+  describe("PoC", () => {
+    it("works", async () => {
       console.log(`Url: ${server.getUrl("/")}`);
 
       await page.goto(server.getUrl("/"));
