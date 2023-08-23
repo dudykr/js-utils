@@ -5,7 +5,10 @@ describe("NextTestServer", () => {
   let server!: NextTestServer;
 
   beforeAll(async () => {
-    server = await NextTestServer.create();
+    server = await NextTestServer.create({
+      dir: "./examples/next-app",
+      dev: true,
+    });
   });
 
   describe("[Symbol.dispose]", () => {

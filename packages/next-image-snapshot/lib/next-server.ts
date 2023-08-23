@@ -15,6 +15,8 @@ export class NextTestServer {
       port: getRandomInt(10000, 65000),
     });
 
+    console.log(app.options.dir);
+
     await app.prepare();
 
     return new NextTestServer(app);
