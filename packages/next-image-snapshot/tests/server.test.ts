@@ -11,7 +11,7 @@ describe("NextTestServer", () => {
     });
   });
 
-  describe("PoC", () => {
+  describe("proof of concepts", () => {
     it("works", async () => {
       console.log(`Url: ${server.getUrl("/")}`);
 
