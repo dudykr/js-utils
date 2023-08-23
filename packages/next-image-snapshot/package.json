@@ -7,8 +7,8 @@
   "scripts": {
     "build:tsc": "tsc",
     "build": "true",
-    "test": "cross-env __NEXT_TEST_MODE='jest' jest --detectOpenHandles --no-cache",
-    "test:ci": "cross-env __NEXT_TEST_MODE='jest' jest --detectOpenHandles --no-cache --ci"
+    "test": "jest --detectOpenHandles --no-cache",
+    "test:ci": "jest --detectOpenHandles --no-cache --ci"
   },
   "keywords": [],
   "author": "강동윤 <kdy1997.dev@gmail.com>",

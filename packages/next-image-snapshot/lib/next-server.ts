@@ -24,8 +24,7 @@ export class NextTestServer {
         cwd: options.dir,
       },
     )) as ChildProcess;
-
-    app.stdin?.end();
+    console.log(app);
 
     const s = new NextTestServer(app, options);
 
