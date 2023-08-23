@@ -17,7 +17,7 @@ export class NextTestServer {
 
     console.log(`Starting a next.js app at ${app.options.dir}`);
 
-    await app.prepare();
+    // await app.prepare();
 
     return new NextTestServer(app);
   }
@@ -31,6 +31,8 @@ export class NextTestServer {
   }
 
   async close() {
+    console.log(`Closing a next.js app at ${this.next.options.dir}`);
     await this.next.close();
+    console.log(`Closed a next.js app at ${this.next.options.dir}`);
   }
 }

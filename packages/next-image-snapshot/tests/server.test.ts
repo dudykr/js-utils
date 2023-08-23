@@ -1,23 +1,24 @@
-import { describe, it, beforeAll, afterAll } from "@jest/globals";
+import { describe, it, beforeEach, afterEach } from "@jest/globals";
 import { NextTestServer } from "../lib/next-server.ts";
 
 describe("NextTestServer", () => {
   let server!: NextTestServer;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     server = await NextTestServer.create({
       dir: "./examples/next-app",
       dev: true,
     });
   });
 
-  afterAll(async () => {
-    await server.close();
-  });
-
   describe("[Symbol.dispose]", () => {
     it("works with using", () => {
-      console.log(`Ur: ${server.getUrl("/")}`);
+      // console.log(`Url: ${server.getUrl("/")}`);
+      console.log(`Url`);
     });
+  });
+
+  afterEach(async () => {
+    await server.close();
   });
 });
