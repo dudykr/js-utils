@@ -28,6 +28,7 @@ export class NextTestServer {
       },
     );
 
+    // Wait for next.js app to start
     await waitPort({
       host: options.hostname,
       port: options.port,
