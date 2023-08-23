@@ -5,3 +5,5 @@ package-lock.json
 .yarn
 *.tgz
 .dprint.json
+out/
+tests/

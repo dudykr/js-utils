@@ -1,3 +1,4 @@
+examples/
 node_modules/
 package-lock.json
 *.log
@@ -5,3 +6,5 @@ package-lock.json
 .yarn
 *.tgz
 .dprint.json
+out/
+tests/
