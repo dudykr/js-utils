@@ -13,7 +13,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "rootDir": "./lib"
+    "rootDir": "."
   },
-  "exclude": ["examples", "tests"]
+  "include": ["lib", "tests"],
+  "exclude": ["examples"]
 }
