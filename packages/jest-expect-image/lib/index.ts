@@ -1,4 +1,7 @@
-function toMatchImageSnapshot() {}
+import { expect } from "@jest/globals";
+//@ts-ignore
+import { toMatchImageSnapshot } from "jest-image-snapshot";
+expect.extend({ toMatchImageSnapshot });
 
 type MatcherType<T> = T extends (
   instance: any,
