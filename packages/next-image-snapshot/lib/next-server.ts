@@ -13,6 +13,7 @@ export class NextTestServer {
         ...options.conf,
       },
       port: getRandomInt(10000, 65000),
+      hostname: "localhost",
     });
 
     console.log(`Starting a next.js app at ${app.options.dir}`);
