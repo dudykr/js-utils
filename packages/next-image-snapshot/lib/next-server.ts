@@ -26,7 +26,6 @@ export class NextTestServer {
         timeout: 10000,
       },
     );
-    console.log(app);
 
     const s = new NextTestServer(app, options);
 
