@@ -1,26 +1,29 @@
-import next, { NextServer, NextServerOptions } from "next/dist/server/next";
-import { getRandomInt } from "./util";
+import { NextServerOptions } from "next/dist/server/next";
+import { getRandomInt, spawnAsync } from "./util.ts";
+import { ChildProcess } from "child_process";
 
 export class NextTestServer {
-  private constructor(private readonly next: NextServer) {}
+  private constructor(
+    private readonly next: ChildProcess,
+    private readonly options: NextServerOptions,
+  ) {}
 
   public static async create(options?: Exclude<NextServerOptions, "port">) {
     options = options ?? {};
-    const app = next({
-      ...options,
-      conf: {
-        productionBrowserSourceMaps: true,
-        ...options.conf,
+    options.port = getRandomInt(3000, 4000);
+
+    console.log(`Starting a next.js app at ${options.dir}`);
+
+    const app = await spawnAsync(
+      "node",
+      ["node_modules/next/dist/bin/next", "dev", "-p", options.port.toString()],
+      {
+        stdio: "inherit",
+        cwd: options.dir,
       },
-      port: getRandomInt(10000, 65000),
-      hostname: "localhost",
-    });
+    );
 
-    console.log(`Starting a next.js app at ${app.options.dir}`);
-
-    await app.prepare();
-
-    const s = new NextTestServer(app);
+    const s = new NextTestServer(app as ChildProcess, options);
 
     console.log(`Next.js app is running at ${s.getUrl("/")}`);
 
@@ -28,7 +31,9 @@ export class NextTestServer {
   }
 
   getUrl(pathname: string): string {
-    return `http://${this.next.hostname}:${this.next.port}${pathname}`;
+    return `http://${this.options.hostname ?? "localhost"}:${
+      this.options.port
+    }${pathname}`;
   }
 
   async [Symbol.asyncDispose]() {
@@ -36,7 +41,7 @@ export class NextTestServer {
   }
 
   async close() {
-    console.log(`Closing a next.js app at ${this.next.options.dir}`);
-    await this.next.close();
+    console.log(`Closing a next.js app at ${this.options.dir}`);
+    this.next.kill();
   }
 }
