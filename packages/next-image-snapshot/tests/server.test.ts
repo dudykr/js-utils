@@ -1,5 +1,5 @@
 import { describe, it, beforeAll } from "@jest/globals";
-import { NextTestServer } from "../lib/next-server";
+import { NextTestServer } from "../lib/next-server.ts";
 
 describe("NextTestServer", () => {
   let server!: NextTestServer;
