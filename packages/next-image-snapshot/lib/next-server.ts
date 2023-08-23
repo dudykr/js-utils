@@ -18,9 +18,13 @@ export class NextTestServer {
 
     console.log(`Starting a next.js app at ${app.options.dir}`);
 
-    // await app.prepare();
+    await app.prepare();
 
-    return new NextTestServer(app);
+    const s = new NextTestServer(app);
+
+    console.log(`Next.js app is running at ${s.getUrl("/")}`);
+
+    return s;
   }
 
   getUrl(pathname: string): string {
