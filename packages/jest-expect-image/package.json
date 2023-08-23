@@ -6,9 +6,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build:tsc": "tsc",
-    "build": "true",
-    "test": "jest --detectOpenHandles --no-cache",
-    "test:ci": "jest --detectOpenHandles --no-cache --ci"
+    "build": "true"
   },
   "keywords": [],
   "author": "강동윤 <kdy1997.dev@gmail.com>",
