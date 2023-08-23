@@ -23,7 +23,6 @@ export class NextTestServer {
         stdio: ["ignore", "inherit", "inherit"],
         cwd: options.dir,
         windowsHide: true,
-        timeout: 10000,
       },
     );
 
