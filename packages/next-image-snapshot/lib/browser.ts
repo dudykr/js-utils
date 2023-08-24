@@ -124,6 +124,9 @@ export class Browser {
       if (options.common.size) {
         opts = opts.windowSize(options.common.size);
       }
+
+      // Make sure that the screenshot is not scaled on mac OS X.
+      opts = opts.addArguments("--force-device-scale-factor=1");
       if (enableCI) {
         // https://github.com/actions/runner-images/issues/506#issuecomment-595731397
         opts = opts.addArguments(
