@@ -1,6 +1,5 @@
-export class Tester {
-  public async render() {}
-}
+export * from "./browser";
+export * from "./next-server";
 
 /**
  * A next.js page in app/ directory
