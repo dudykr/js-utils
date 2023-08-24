@@ -4,14 +4,22 @@ export * from "./next-server";
 /**
  * A next.js page in app/ directory
  */
-export interface NextAppPage {}
+export interface NextAppPage {
+  default: (props: any) => React.ReactNode;
+}
 
 /**
  * A next.js page in pages/ directory
  */
-export interface NextNormalPage {}
+export interface NextNormalPage {
+  default: (props: any) => React.ReactNode;
+}
 
-export interface RenderedPage {}
+export interface RenderedPage {
+  close(): Promise<void>;
+
+  readonly url: string;
+}
 
 export async function renderPage<P extends NextNormalPage>(
   page: () => Promise<P>,
