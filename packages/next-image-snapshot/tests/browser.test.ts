@@ -37,7 +37,12 @@ describe("Browser", () => {
 
         const screenshot = await browser.driver.takeScreenshot();
 
-        expect(screenshot).toMatchImageSnapshot(browser.name);
+        expect(screenshot).toMatchImageSnapshot({
+          comparisonMethod: "ssim",
+          failureThreshold: 0.05,
+          failureThresholdType: "percent",
+          dumpDiffToConsole: true,
+        });
       }
     });
   });

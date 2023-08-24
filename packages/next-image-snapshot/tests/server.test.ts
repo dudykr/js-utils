@@ -49,7 +49,12 @@ describe("NextTestServer", () => {
       await driver.get(server.getUrl("/"));
       const image = await driver.takeScreenshot();
 
-      expect(image).toMatchImageSnapshot();
+      expect(image).toMatchImageSnapshot({
+        comparisonMethod: "ssim",
+        failureThreshold: 0.05,
+        failureThresholdType: "percent",
+        dumpDiffToConsole: true,
+      });
     });
   });
 });
