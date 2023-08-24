@@ -108,7 +108,15 @@ export class Browser {
 
     const builder = new Builder().forBrowser(browser);
 
-    if (options?.chrome) {
+    const enableCI = !options.common.noCIMode && !!process.env.CI;
+
+    if (enableCI) {
+      console.warn(
+        "CI mode is enabled. This will disable GPU acceleration and sandboxing.",
+      );
+    }
+
+    {
       let opts = new chrome.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
@@ -116,7 +124,7 @@ export class Browser {
       if (options.common.size) {
         opts = opts.windowSize(options.common.size);
       }
-      if (!options.common.noCIMode && !!process.env.CI) {
+      if (enableCI) {
         // https://github.com/actions/runner-images/issues/506#issuecomment-595731397
         opts = opts.addArguments(
           "--no-sandbox",
@@ -126,13 +134,19 @@ export class Browser {
           "--disable-extensions",
         );
       }
-      builder.setChromeOptions(options.chrome(opts));
+      if (options.chrome) {
+        opts = options.chrome(opts);
+      }
+      builder.setChromeOptions(opts);
     }
-    if (options?.ie) {
-      const opts = new ie.Options();
-      builder.setIeOptions(options.ie(opts));
+    {
+      let opts = new ie.Options();
+      if (options.ie) {
+        opts = options.ie(opts);
+      }
+      builder.setIeOptions(opts);
     }
-    if (options?.edge) {
+    {
       let opts = new edge.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
@@ -140,9 +154,12 @@ export class Browser {
       if (options.common.size) {
         opts = opts.windowSize(options.common.size);
       }
-      builder.setEdgeOptions(options.edge(opts));
+      if (options.edge) {
+        opts = options.edge(opts);
+      }
+      builder.setEdgeOptions(opts);
     }
-    if (options?.firefox) {
+    {
       let opts = new firefox.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
@@ -150,11 +167,18 @@ export class Browser {
       if (options.common.size) {
         opts = opts.windowSize(options.common.size);
       }
-      builder.setFirefoxOptions(options.firefox(opts));
+      if (options.firefox) {
+        opts = options.firefox(opts);
+      }
+      builder.setFirefoxOptions(opts);
     }
-    if (options?.safari) {
-      const opts = new safari.Options();
-      builder.setSafariOptions(options.safari(opts));
+    {
+      let opts = new safari.Options();
+
+      if (options.safari) {
+        opts = options.safari(opts);
+      }
+      builder.setSafariOptions(opts);
     }
 
     const driver = await builder.build();
