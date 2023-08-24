@@ -5,6 +5,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "prepublishOnly": "turbo run build:tsc",
     "build:tsc": "tsc",
     "build": "true"
   },
