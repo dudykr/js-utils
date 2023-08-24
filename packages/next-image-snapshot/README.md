@@ -35,7 +35,7 @@ describe("User sign up page", () => {
 
       const screenshot = await browser.driver.takeScreenshot();
 
-      expect(screenshot).toMatchImageSnapshot(browser.name);
+      expect(screenshot).toMatchImageSnapshot();
     }
   });
 });
@@ -65,7 +65,7 @@ describe("User sign up page", () => {
 
       const screenshot = await browser.driver.takeScreenshot();
 
-      expect(screenshot).toMatchImageSnapshot(browser.name);
+      expect(screenshot).toMatchImageSnapshot();
     }
   });
 });
