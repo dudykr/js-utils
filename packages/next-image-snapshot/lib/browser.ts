@@ -1,5 +1,5 @@
-import { RenderedPage, closeAll } from "lib";
-import { NextTestServer } from "./next-server";
+import { RenderedPage, closeAll } from "./index.js";
+import { NextTestServer } from "./next-server.js";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
 
 /**
