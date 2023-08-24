@@ -48,7 +48,11 @@ describe("Browser.all()", () => {
   });
 
   describe("when a browser is not installed", () => {
-    it("should throw an error", async () => {});
+    it("should throw an error", async () => {
+      expect(
+        Browser.all(server, ["chrome", "unknown-browser"]),
+      ).resolves.toThrow();
+    });
 
     it("should close other browsers", async () => {
       // TODO: Check browsers
