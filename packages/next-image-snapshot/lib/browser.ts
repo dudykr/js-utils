@@ -6,10 +6,11 @@ type Mapper<T> = (value: T) => T;
 
 type BrowserOptions = {
   chrome?: Mapper<import("selenium-webdriver/chrome").Options>;
-  ie?: Mapper<import("selenium-webdriver/ie").Options>;
-  edge?: Mapper<import("selenium-webdriver/edge").Options>;
   firefox?: Mapper<import("selenium-webdriver/firefox").Options>;
   safari?: Mapper<import("selenium-webdriver/safari").Options>;
+
+  ie?: import("selenium-webdriver/ie").Options;
+  edge?: import("selenium-webdriver/edge").Options;
 };
 
 /**
@@ -29,7 +30,7 @@ export class Browser {
     const builder = new Builder().forBrowser(browser);
 
     if (options?.chrome) {
-      builder.setChromeOptions(options.chrome);
+      builder.setChromeOptions(options.chrome(builder.getChromeOptions()));
     }
     if (options?.ie) {
       builder.setIeOptions(options.ie);
@@ -38,7 +39,10 @@ export class Browser {
       builder.setEdgeOptions(options.edge);
     }
     if (options?.firefox) {
-      builder.setFirefoxOptions(options.firefox);
+      builder.setFirefoxOptions(options.firefox(builder.getFirefoxOptions()));
+    }
+    if (options?.safari) {
+      builder.setSafariOptions(options.safari(builder.getSafariOptions()));
     }
 
     const driver = await builder.build();
