@@ -4,10 +4,11 @@ import "jest-expect-image";
 import { Browser } from "../lib/browser.js";
 
 describe("Browser", () => {
+  let server!: NextTestServer;
   let browsers!: Browser[];
 
   beforeEach(async () => {
-    const server = await NextTestServer.create({
+    server = await NextTestServer.create({
       dir: "./examples/next-app",
       dev: true,
     });
@@ -28,5 +29,6 @@ describe("Browser", () => {
 
   afterEach(async () => {
     await Promise.all(browsers.map((browser) => browser.close()));
+    await server.close();
   });
 });
