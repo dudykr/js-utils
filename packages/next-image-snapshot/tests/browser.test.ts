@@ -14,6 +14,9 @@ describe("Browser", () => {
       dev: true,
     });
     browsers = await Browsers.all(server, ["chrome"], {
+      common: {
+        headless: true,
+      },
       chrome: (options) => options.headless(),
       firefox: (options) => options.headless(),
     });
@@ -88,7 +91,11 @@ describe("Browsers.all()", () => {
   describe("when a browser is not installed", () => {
     it("should throw an error", async () => {
       expect(
-        Browsers.all(server, ["chrome", "unknown-browser"]),
+        Browsers.all(server, ["chrome", "unknown-browser"], {
+          common: {
+            headless: true,
+          },
+        }),
       ).rejects.toBeInstanceOf(Error);
     });
 
