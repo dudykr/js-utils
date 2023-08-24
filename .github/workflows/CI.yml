@@ -29,6 +29,10 @@ jobs:
         with:
           version: 8.6.3
 
+      - uses: browser-actions/setup-chrome@v1
+
+      - uses: browser-actions/setup-firefox@v1
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
