@@ -117,6 +117,7 @@ export class Browser {
         opts = opts.windowSize(options.common.size);
       }
       if (!options.common.noCIMode) {
+        // https://github.com/actions/runner-images/issues/506#issuecomment-595731397
         opts = opts.addArguments(
           "--no-sandbox",
           "--disable-gpu",
