@@ -2,11 +2,14 @@ import { RenderedPage, closeAll } from "./index.js";
 import { NextTestServer } from "./next-server.js";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
 
+type Mapper<T> = (value: T) => T;
+
 type BrowserOptions = {
-  chrome?: import("selenium-webdriver/chrome").Options;
-  ie?: import("selenium-webdriver/ie").Options;
-  edge?: import("selenium-webdriver/edge").Options;
-  firefox?: import("selenium-webdriver/firefox").Options;
+  chrome?: Mapper<import("selenium-webdriver/chrome").Options>;
+  ie?: Mapper<import("selenium-webdriver/ie").Options>;
+  edge?: Mapper<import("selenium-webdriver/edge").Options>;
+  firefox?: Mapper<import("selenium-webdriver/firefox").Options>;
+  safari?: Mapper<import("selenium-webdriver/safari").Options>;
 };
 
 /**
