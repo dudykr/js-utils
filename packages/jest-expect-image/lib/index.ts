@@ -3,20 +3,24 @@ import { expect } from "@jest/globals";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 expect.extend({ toMatchImageSnapshot });
 
-type MatcherType<T> = T extends (
-  instance: any,
-  ...args: infer TArgs
-) => infer TRet
-  ? (...args: TArgs) => TRet
-  : never;
+export interface MatchOptions {}
+
+export interface CustomMatcherResult {}
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface SnapshotMatchers<R> {
-      toMatchImageSnapshot: MatcherType<typeof toMatchImageSnapshot>;
+    interface Matchers<R> {
+      toMatchImageSnapshot(options?: MatchOptions): CustomMatcherResult;
     }
+  }
+}
+
+declare module "@jest/expect" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface Matchers<R> {
+    toMatchImageSnapshot(options?: MatchOptions): CustomMatcherResult;
   }
 }
 

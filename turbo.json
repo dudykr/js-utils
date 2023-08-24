@@ -7,21 +7,33 @@
     },
     "build:tsc": {
       "dependsOn": ["topo"],
-      "inputs": ["lib/**/*.ts", "lib/**/*.tsx"],
-      "outputs": ["lib/**/*.js", "lib/**/*.d.ts", "lib/**/*.map"]
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.tsx",
+        "tests/**/*.ts",
+        "tests/**/*.tsx"
+      ],
+      "outputs": [
+        "lib/**/*.js",
+        "lib/**/*.d.ts",
+        "lib/**/*.map",
+        "tests/**/*.js",
+        "tests/**/*.d.ts",
+        "tests/**/*.map"
+      ]
     },
-    "build": {
+    "build:test": {
       "dependsOn": ["build:tsc", "^build:tsc"]
     },
 
     "lint": {},
     "test": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build:test"],
       "cache": false,
       "persistent": true
     },
     "test:ci": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build:test"]
     }
   }
 }
