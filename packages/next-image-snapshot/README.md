@@ -18,7 +18,7 @@ describe("User sign up page", () => {
       dir: "./examples/next-app",
       dev: true,
     });
-    browsers = await Browsers.all(server, ["chrome", "firefox", "safari"], {
+    browsers = await Browsers.all(server, ["chrome", "firefox", "edge"], {
       common: {
         headless: true,
       },
@@ -35,7 +35,7 @@ describe("User sign up page", () => {
 
       const screenshot = await browser.driver.takeScreenshot();
 
-      expect(screenshot).toMatchImageSnapshot(browser.name);
+      expect(screenshot).toMatchImageSnapshot();
     }
   });
 });
@@ -54,7 +54,7 @@ describe("User sign up page", () => {
         dir: "./examples/next-app",
         dev: true,
     });
-    using browsers = await Browsers.all(server, ["chrome", "firefox", "safari"], {
+    using browsers = await Browsers.all(server, ["chrome", "firefox", "edge"], {
         common: {
             headless: true,
         },
@@ -65,7 +65,7 @@ describe("User sign up page", () => {
 
       const screenshot = await browser.driver.takeScreenshot();
 
-      expect(screenshot).toMatchImageSnapshot(browser.name);
+      expect(screenshot).toMatchImageSnapshot();
     }
   });
 });

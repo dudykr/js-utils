@@ -13,7 +13,7 @@ describe("Browser", () => {
       dir: "./examples/next-app",
       dev: true,
     });
-    browsers = await Browsers.all(server, ["chrome"], {
+    browsers = await Browsers.all(server, ["chrome", "firefox"], {
       common: {
         headless: true,
         size: {
@@ -21,8 +21,6 @@ describe("Browser", () => {
           height: 720,
         },
       },
-      chrome: (options) => options.headless(),
-      firefox: (options) => options.headless(),
     });
   });
 
