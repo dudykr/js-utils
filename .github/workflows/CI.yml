@@ -29,9 +29,11 @@ jobs:
         with:
           version: 8.6.3
 
-      - uses: browser-actions/setup-chrome@v1
-
-      - uses: browser-actions/setup-firefox@v1
+      - uses: nanasess/setup-chromedriver@v2
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
