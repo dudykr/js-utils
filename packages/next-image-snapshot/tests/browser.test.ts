@@ -51,7 +51,7 @@ describe("Browser.all()", () => {
     it("should throw an error", async () => {
       expect(
         Browser.all(server, ["chrome", "unknown-browser"]),
-      ).rejects.toBeInstanceOf(Array);
+      ).rejects.toBeInstanceOf(Error);
     });
 
     it("should close other browsers", async () => {
