@@ -30,14 +30,20 @@ export async function renderAppPage<P extends NextAppPage>(
   return {};
 }
 
-type Close = {
-  close(): PromiseLike<void>;
-};
+type Close =
+  | undefined
+  | null
+  | false
+  | 0
+  | ""
+  | {
+      close(): PromiseLike<void>;
+    };
 
 /**
  * Falsy values will be ignored.
  */
-export type Closable = undefined | false | 0 | Close | Close[];
+export type Closable = Close | Close[];
 /**
  *  Closes every disposable in order, while catching and aggregating all errors.
  *

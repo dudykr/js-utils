@@ -33,6 +33,7 @@ export class Browser {
 
     if (built.some((result) => result.status === "rejected")) {
       await closeAll(built.map((result) => "value" in result && result.value));
+
       for (const result of built) {
         if (result.status === "fulfilled") {
           await result.value.close();
