@@ -102,7 +102,11 @@ describe("Browsers.all()", () => {
     it("should close other browsers", async () => {
       // TODO: Check browsers
       try {
-        await Browsers.all(server, ["chrome", "unknown-browser"]);
+        await Browsers.all(server, ["chrome", "unknown-browser"], {
+          common: {
+            headless: true,
+          },
+        });
       } catch (e: unknown) {
         console.log(e);
       }
