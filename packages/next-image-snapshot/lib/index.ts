@@ -34,7 +34,7 @@ type Close = {
   close(): PromiseLike<void>;
 };
 
-export type Closable = Close | Close[];
+export type Closable = undefined | Close | Close[];
 /**
  *  Closes every disposable in order, while catching and aggregating all errors.
  *
@@ -45,6 +45,8 @@ export async function closeAll(...disposables: Closable[]): Promise<void> {
 
   for (const disposable of disposables) {
     try {
+      if (!disposable) continue;
+
       if (Array.isArray(disposable)) {
         await closeAll(disposable);
       } else {
