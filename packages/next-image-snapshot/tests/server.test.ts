@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, afterEach, expect } from "@jest/globals";
-import { NextTestServer } from "../lib/next-server.ts";
+import { NextTestServer } from "../lib/next-server.js";
 import "jest-expect-image";
 
 describe("NextTestServer", () => {
