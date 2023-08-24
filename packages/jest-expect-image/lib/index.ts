@@ -11,7 +11,7 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface SnapshotMatchers<R> {
+    interface Matchers<R> {
       toMatchImageSnapshot(options: MatchOptions): CustomMatcherResult;
     }
   }
