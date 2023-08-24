@@ -2,6 +2,7 @@ import { describe, it, beforeEach, afterEach, expect } from "@jest/globals";
 import { NextTestServer } from "../lib/next-server.js";
 import "jest-expect-image";
 import { Browser } from "../lib/browser.js";
+import { disposeAll } from "lib/index.js";
 
 describe("Browser", () => {
   let server!: NextTestServer;
@@ -28,7 +29,6 @@ describe("Browser", () => {
   });
 
   afterEach(async () => {
-    await Promise.all(browsers.map((browser) => browser.close()));
-    await server.close();
+    await disposeAll(browsers, server);
   });
 });
