@@ -7,14 +7,14 @@ export * from "./next-server";
  * A next.js page in app/ directory
  */
 export interface NextAppPage {
-  default: (props: any) => React.ReactNode;
+  default: (props: any) => JSX.Element;
 }
 
 /**
  * A next.js page in pages/ directory
  */
 export interface NextNormalPage {
-  default: (props: any) => React.ReactNode;
+  default: (props: any) => JSX.Element;
 }
 
 export interface RenderedPage {
