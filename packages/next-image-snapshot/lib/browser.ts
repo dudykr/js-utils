@@ -1,6 +1,26 @@
 import { RenderedPage, closeAll } from "./index.js";
 import { NextTestServer } from "./next-server.js";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
+import chrome from "selenium-webdriver/chrome";
+import firefox from "selenium-webdriver/firefox";
+import safari from "selenium-webdriver/safari";
+import ie from "selenium-webdriver/ie";
+import edge from "selenium-webdriver/edge";
+
+type Mapper<T> = (value: T) => T;
+
+type BrowserOptions = {
+  common?: {
+    headless?: boolean;
+  };
+
+  chrome?: Mapper<import("selenium-webdriver/chrome").Options>;
+  firefox?: Mapper<import("selenium-webdriver/firefox").Options>;
+  safari?: Mapper<import("selenium-webdriver/safari").Options>;
+
+  ie?: Mapper<import("selenium-webdriver/ie").Options>;
+  edge?: Mapper<import("selenium-webdriver/edge").Options>;
+};
 
 /**
  * An instance of browser which is bound to a [NextTestServer]
@@ -9,15 +29,50 @@ export class Browser {
   constructor(
     private readonly server: NextTestServer,
     public readonly driver: Awaited<ThenableWebDriver>,
+    public readonly name: string,
   ) {}
 
   public static async create(
     server: NextTestServer,
     browser: string,
+    options?: BrowserOptions,
   ): Promise<Browser> {
-    const driver = await new Builder().forBrowser(browser).build();
+    const builder = new Builder().forBrowser(browser);
 
-    return new Browser(server, driver);
+    if (options?.chrome) {
+      let opts = new chrome.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
+      builder.setChromeOptions(options.chrome(opts));
+    }
+    if (options?.ie) {
+      const opts = new ie.Options();
+      builder.setIeOptions(options.ie(opts));
+    }
+    if (options?.edge) {
+      let opts = new edge.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
+      builder.setEdgeOptions(options.edge(opts));
+    }
+    if (options?.firefox) {
+      let opts = new firefox.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
+      builder.setFirefoxOptions(options.firefox(opts));
+    }
+    if (options?.safari) {
+      const opts = new safari.Options();
+
+      builder.setSafariOptions(options.safari(opts));
+    }
+
+    const driver = await builder.build();
+
+    return new Browser(server, driver, browser);
   }
 
   /**
@@ -26,9 +81,10 @@ export class Browser {
   public static async all(
     server: NextTestServer,
     browsers: string[],
+    options?: BrowserOptions,
   ): Promise<Browser[]> {
     const built = await Promise.allSettled(
-      browsers.map((browser) => Browser.create(server, browser)),
+      browsers.map((browser) => Browser.create(server, browser, options)),
     );
 
     // This will close all browsers if an error occurs.

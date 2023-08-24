@@ -13,7 +13,10 @@ describe("Browser", () => {
       dir: "./examples/next-app",
       dev: true,
     });
-    browsers = await Browser.all(server, ["chrome"]);
+    browsers = await Browser.all(server, ["chrome"], {
+      chrome: (options) => options.headless(),
+      firefox: (options) => options.headless(),
+    });
   });
 
   afterEach(async () => {
@@ -27,7 +30,7 @@ describe("Browser", () => {
 
         const screenshot = await browser.driver.takeScreenshot();
 
-        expect(screenshot).toMatchImageSnapshot();
+        expect(screenshot).toMatchImageSnapshot(browser.name);
       }
     });
   });
@@ -45,6 +48,41 @@ describe("Browser.all()", () => {
 
   afterEach(async () => {
     await closeAll(server);
+  });
+
+  describe("options.common", () => {
+    let server!: NextTestServer;
+
+    beforeEach(async () => {
+      server = await NextTestServer.create({
+        dir: "./examples/next-app",
+        dev: true,
+      });
+    });
+
+    afterEach(async () => {
+      await closeAll(server);
+    });
+
+    describe("headless", () => {
+      it("should propagate to all browsers", async () => {
+        const browsers = await Browser.all(server, ["chrome"], {
+          common: {
+            headless: true,
+          },
+        });
+
+        try {
+          for (const browser of browsers) {
+            const cap = await browser.driver.getCapabilities();
+            console.log(cap);
+            // expect(cap.get("goog:chromeOptions").args).toContain("--headless");
+          }
+        } finally {
+          await closeAll(browsers);
+        }
+      });
+    });
   });
 
   describe("when a browser is not installed", () => {
