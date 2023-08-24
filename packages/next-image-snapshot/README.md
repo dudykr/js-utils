@@ -13,7 +13,7 @@ describe("User sign up page", () => {
   let server!: NextTestServer;
   let browsers!: Browsers;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     server = await NextTestServer.create({
       dir: "./examples/next-app",
       dev: true,
@@ -25,11 +25,41 @@ describe("User sign up page", () => {
     });
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await closeAll(browsers, server);
   });
 
   it("renders properly in all browsers", async () => {
+    for (const browser of browsers) {
+      await browser.load("/");
+
+      const screenshot = await browser.driver.takeScreenshot();
+
+      expect(screenshot).toMatchImageSnapshot(browser.name);
+    }
+  });
+});
+```
+
+Note the `NestTestServer`, `Browser` and `Browsers` all support `[Symbol.asyncDispose]`.
+It means, once TypeScript 5.2 is released, you will be able to do this:
+
+```ts
+import "jest-expect-image";
+import { Browsers, NextTestServer, closeAll } from "next-image-snapshot";
+
+describe("User sign up page", () => {
+  it("renders properly in all browsers", async () => {
+    using server = await NextTestServer.create({
+        dir: "./examples/next-app",
+        dev: true,
+    });
+    using browsers = await Browsers.all(server, ["chrome", "firefox", "safari"], {
+        common: {
+            headless: true,
+        },
+    });
+
     for (const browser of browsers) {
       await browser.load("/");
 
