@@ -1,6 +1,11 @@
 import { RenderedPage, closeAll } from "./index.js";
 import { NextTestServer } from "./next-server.js";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
+import chrome from "selenium-webdriver/chrome";
+import firefox from "selenium-webdriver/firefox";
+import safari from "selenium-webdriver/safari";
+import ie from "selenium-webdriver/ie";
+import edge from "selenium-webdriver/edge";
 
 type Mapper<T> = (value: T) => T;
 
@@ -9,8 +14,8 @@ type BrowserOptions = {
   firefox?: Mapper<import("selenium-webdriver/firefox").Options>;
   safari?: Mapper<import("selenium-webdriver/safari").Options>;
 
-  ie?: import("selenium-webdriver/ie").Options;
-  edge?: import("selenium-webdriver/edge").Options;
+  ie?: Mapper<import("selenium-webdriver/ie").Options>;
+  edge?: Mapper<import("selenium-webdriver/edge").Options>;
 };
 
 /**
@@ -31,19 +36,24 @@ export class Browser {
     const builder = new Builder().forBrowser(browser);
 
     if (options?.chrome) {
-      builder.setChromeOptions(options.chrome(builder.getChromeOptions()));
+      const opts = new chrome.Options();
+      builder.setChromeOptions(options.chrome(opts));
     }
     if (options?.ie) {
-      builder.setIeOptions(options.ie);
+      const opts = new ie.Options();
+      builder.setIeOptions(options.ie(opts));
     }
     if (options?.edge) {
-      builder.setEdgeOptions(options.edge);
+      const opts = new edge.Options();
+      builder.setEdgeOptions(options.edge(opts));
     }
     if (options?.firefox) {
-      builder.setFirefoxOptions(options.firefox(builder.getFirefoxOptions()));
+      const opts = new firefox.Options();
+      builder.setFirefoxOptions(options.firefox(opts));
     }
     if (options?.safari) {
-      builder.setSafariOptions(options.safari(builder.getSafariOptions()));
+      const opts = new safari.Options();
+      builder.setSafariOptions(options.safari(opts));
     }
 
     const driver = await builder.build();
