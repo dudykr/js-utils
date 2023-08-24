@@ -43,7 +43,7 @@ type Close =
 /**
  * Falsy values will be ignored.
  */
-export type Closable = Close | Close[];
+export type Closable = Close | Iterable<Close>;
 /**
  *  Closes every disposable in order, while catching and aggregating all errors.
  *
@@ -56,11 +56,12 @@ export async function closeAll(...disposables: Closable[]): Promise<void> {
     try {
       if (!disposable) continue;
 
-      if (Array.isArray(disposable)) {
-        await closeAll(...disposable);
-      } else {
+      if ("close" in disposable) {
         await disposable.close();
+        continue;
       }
+
+      await closeAll(...disposable);
     } catch (e: unknown) {
       errors.push(e);
     }
