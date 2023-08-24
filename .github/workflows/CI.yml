@@ -59,5 +59,8 @@ jobs:
       - run: |
           chromedriver --url-base=/wd/hub &
 
+      - uses: browser-actions/setup-firefox@v1
+      - uses: browser-actions/setup-edge@v1
+
       - name: Test
         run: pnpm turbo run test:ci
