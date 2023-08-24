@@ -116,7 +116,7 @@ export class Browser {
       if (options.common.size) {
         opts = opts.windowSize(options.common.size);
       }
-      if (!options.common.noCIMode) {
+      if (!options.common.noCIMode && !!process.env.CI) {
         // https://github.com/actions/runner-images/issues/506#issuecomment-595731397
         opts = opts.addArguments(
           "--no-sandbox",
