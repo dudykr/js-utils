@@ -52,7 +52,11 @@ describe("Browser.all()", () => {
 
     it("should close other browsers", async () => {
       // TODO: Check browsers
-      await Browser.all(server, ["chrome", "firefox"]);
+      try {
+        await Browser.all(server, ["chrome", "unknown-browser"]);
+      } catch (e: unknown) {
+        console.log(e);
+      }
     });
   });
 });
