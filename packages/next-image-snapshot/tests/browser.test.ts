@@ -21,8 +21,6 @@ describe("Browser", () => {
           height: 720,
         },
       },
-      chrome: (options) => options.headless(),
-      firefox: (options) => options.headless(),
     });
   });
 
