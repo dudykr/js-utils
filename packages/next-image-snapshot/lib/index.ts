@@ -1,3 +1,5 @@
+import { NextTestServer } from "./next-server";
+
 export * from "./browser";
 export * from "./next-server";
 
@@ -22,6 +24,7 @@ export interface RenderedPage {
 }
 
 export async function renderPage<P extends NextNormalPage>(
+  server: NextTestServer,
   page: () => Promise<P>,
 ): Promise<RenderedPage> {
   await page();
@@ -30,6 +33,7 @@ export async function renderPage<P extends NextNormalPage>(
 }
 
 export async function renderAppPage<P extends NextAppPage>(
+  server: NextTestServer,
   page: () => Promise<P>,
 ): Promise<RenderedPage> {
   await page();
