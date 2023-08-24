@@ -69,6 +69,10 @@ export class Browsers {
   public get drivers(): WebDriver[] {
     return this.browsers.map((browser) => browser.driver);
   }
+
+  [Symbol.iterator]() {
+    return this.browsers[Symbol.iterator]();
+  }
 }
 
 /**
