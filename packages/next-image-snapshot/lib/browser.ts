@@ -65,10 +65,8 @@ export class Browser {
       builder.setFirefoxOptions(options.firefox(opts));
     }
     if (options?.safari) {
-      let opts = new safari.Options();
-      if (options?.common?.headless) {
-        opts = opts.headless();
-      }
+      const opts = new safari.Options();
+
       builder.setSafariOptions(options.safari(opts));
     }
 

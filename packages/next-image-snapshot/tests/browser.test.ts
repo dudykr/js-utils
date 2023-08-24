@@ -50,6 +50,36 @@ describe("Browser.all()", () => {
     await closeAll(server);
   });
 
+  describe("options.common", () => {
+    let server!: NextTestServer;
+
+    beforeEach(async () => {
+      server = await NextTestServer.create({
+        dir: "./examples/next-app",
+        dev: true,
+      });
+    });
+
+    afterEach(async () => {
+      await closeAll(server);
+    });
+
+    describe("headless", () => {
+      it("should propagate to all browsers", async () => {
+        const browsers = await Browser.all(server, ["chrome"], {
+          common: {
+            headless: true,
+          },
+        });
+
+        for (const browser of browsers) {
+          const cap = await browser.driver.getCapabilities();
+          expect(cap.get("goog:chromeOptions").args).toContain("--headless");
+        }
+      });
+    });
+  });
+
   describe("when a browser is not installed", () => {
     it("should throw an error", async () => {
       expect(
