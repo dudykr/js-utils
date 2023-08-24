@@ -16,6 +16,10 @@ describe("Browser", () => {
     browsers = await Browsers.all(server, ["chrome"], {
       common: {
         headless: true,
+        size: {
+          width: 400,
+          height: 300,
+        },
       },
       chrome: (options) => options.headless(),
       firefox: (options) => options.headless(),
