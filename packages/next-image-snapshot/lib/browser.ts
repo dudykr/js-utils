@@ -20,6 +20,7 @@ export class Browser {
   constructor(
     private readonly server: NextTestServer,
     public readonly driver: Awaited<ThenableWebDriver>,
+    public readonly name: string,
   ) {}
 
   public static async create(
@@ -47,7 +48,7 @@ export class Browser {
 
     const driver = await builder.build();
 
-    return new Browser(server, driver);
+    return new Browser(server, driver, browser);
   }
 
   /**

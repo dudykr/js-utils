@@ -13,7 +13,10 @@ describe("Browser", () => {
       dir: "./examples/next-app",
       dev: true,
     });
-    browsers = await Browser.all(server, ["chrome"]);
+    browsers = await Browser.all(server, ["chrome"], {
+      chrome: (options) => options.headless(),
+      firefox: (options) => options.headless(),
+    });
   });
 
   afterEach(async () => {
@@ -27,7 +30,7 @@ describe("Browser", () => {
 
         const screenshot = await browser.driver.takeScreenshot();
 
-        expect(screenshot).toMatchImageSnapshot();
+        expect(screenshot).toMatchImageSnapshot(browser.name);
       }
     });
   });
