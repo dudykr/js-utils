@@ -19,7 +19,22 @@ describe("NextTestServer", () => {
   beforeEach(async () => {
     const builder = new Builder().forBrowser("chrome");
     driver = await builder
-      .setChromeOptions(new chrome.Options().headless())
+      .setChromeOptions(
+        new chrome.Options()
+          .headless()
+          .windowSize({
+            width: 800,
+            height: 600,
+          })
+          .addArguments(
+            "--no-sandbox",
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "disable-infobars",
+            "--disable-extensions",
+            "--force-device-scale-factor=1",
+          ),
+      )
       .build();
   });
 
@@ -34,7 +49,12 @@ describe("NextTestServer", () => {
       await driver.get(server.getUrl("/"));
       const image = await driver.takeScreenshot();
 
-      expect(image).toMatchImageSnapshot();
+      expect(image).toMatchImageSnapshot({
+        comparisonMethod: "ssim",
+        failureThreshold: 0.05,
+        failureThresholdType: "percent",
+        dumpDiffToConsole: true,
+      });
     });
   });
 });

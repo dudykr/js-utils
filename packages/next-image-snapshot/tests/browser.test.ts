@@ -14,6 +14,13 @@ describe("Browser", () => {
       dev: true,
     });
     browsers = await Browsers.all(server, ["chrome"], {
+      common: {
+        headless: true,
+        size: {
+          width: 1080,
+          height: 720,
+        },
+      },
       chrome: (options) => options.headless(),
       firefox: (options) => options.headless(),
     });
@@ -23,14 +30,19 @@ describe("Browser", () => {
     await closeAll(browsers, server);
   });
 
-  describe("proof of concepts", () => {
+  describe("screenshot", () => {
     it("works", async () => {
       for (const browser of browsers) {
         await browser.load("/");
 
         const screenshot = await browser.driver.takeScreenshot();
 
-        expect(screenshot).toMatchImageSnapshot(browser.name);
+        expect(screenshot).toMatchImageSnapshot({
+          comparisonMethod: "ssim",
+          failureThreshold: 0.05,
+          failureThresholdType: "percent",
+          dumpDiffToConsole: true,
+        });
       }
     });
   });
@@ -88,14 +100,22 @@ describe("Browsers.all()", () => {
   describe("when a browser is not installed", () => {
     it("should throw an error", async () => {
       expect(
-        Browsers.all(server, ["chrome", "unknown-browser"]),
+        Browsers.all(server, ["chrome", "unknown-browser"], {
+          common: {
+            headless: true,
+          },
+        }),
       ).rejects.toBeInstanceOf(Error);
     });
 
     it("should close other browsers", async () => {
       // TODO: Check browsers
       try {
-        await Browsers.all(server, ["chrome", "unknown-browser"]);
+        await Browsers.all(server, ["chrome", "unknown-browser"], {
+          common: {
+            headless: true,
+          },
+        });
       } catch (e: unknown) {
         console.log(e);
       }

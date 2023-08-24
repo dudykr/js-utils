@@ -1,7 +1,7 @@
 {
   "name": "next-image-snapshot",
   "packageManager": "pnpm@8.6.3",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "build:tsc": "tsc",
     "build": "true",
     "test": "jest --detectOpenHandles --no-cache",
-    "test:ci": "jest --detectOpenHandles --no-cache --ci"
+    "test:ci": "cross-env CI=1 jest --detectOpenHandles --no-cache --ci"
   },
   "keywords": [],
   "author": "강동윤 <kdy1997.dev@gmail.com>",

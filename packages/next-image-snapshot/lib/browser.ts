@@ -11,7 +11,16 @@ type Mapper<T> = (value: T) => T;
 
 type BrowserOptions = {
   common?: {
+    /**
+     * Defaults to false. If this is false, the CI mode will be enabled automatically by default.
+     */
+    noCIMode?: boolean;
+
     headless?: boolean;
+    /**
+     * Defaults to 800x600
+     */
+    size?: { width: number; height: number };
   };
 
   chrome?: Mapper<import("selenium-webdriver/chrome").Options>;
@@ -90,37 +99,89 @@ export class Browser {
     browser: string,
     options?: BrowserOptions,
   ): Promise<Browser> {
+    options ??= {};
+    options.common ??= {};
+    options.common.size ??= {
+      width: 800,
+      height: 600,
+    };
+
     const builder = new Builder().forBrowser(browser);
 
-    if (options?.chrome) {
+    const enableCI = !options.common.noCIMode && !!process.env.CI;
+
+    if (enableCI) {
+      console.warn(
+        "CI mode is enabled. This will disable GPU acceleration and sandboxing.",
+      );
+    }
+
+    {
       let opts = new chrome.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
       }
-      builder.setChromeOptions(options.chrome(opts));
+      if (options.common.size) {
+        opts = opts.windowSize(options.common.size);
+      }
+
+      // Make sure that the screenshot is not scaled on mac OS X.
+      opts = opts.addArguments("--force-device-scale-factor=1");
+      if (enableCI) {
+        // https://github.com/actions/runner-images/issues/506#issuecomment-595731397
+        opts = opts.addArguments(
+          "--no-sandbox",
+          "--disable-gpu",
+          "--disable-dev-shm-usage",
+          "disable-infobars",
+          "--disable-extensions",
+        );
+      }
+      if (options.chrome) {
+        opts = options.chrome(opts);
+      }
+      builder.setChromeOptions(opts);
     }
-    if (options?.ie) {
-      const opts = new ie.Options();
-      builder.setIeOptions(options.ie(opts));
+    {
+      let opts = new ie.Options();
+      if (options.ie) {
+        opts = options.ie(opts);
+      }
+      builder.setIeOptions(opts);
     }
-    if (options?.edge) {
+    {
       let opts = new edge.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
       }
-      builder.setEdgeOptions(options.edge(opts));
+      if (options.common.size) {
+        opts = opts.windowSize(options.common.size);
+      }
+      if (options.edge) {
+        opts = options.edge(opts);
+      }
+      builder.setEdgeOptions(opts);
     }
-    if (options?.firefox) {
+    {
       let opts = new firefox.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
       }
-      builder.setFirefoxOptions(options.firefox(opts));
+      if (options.common.size) {
+        opts = opts.windowSize(options.common.size);
+      }
+      if (options.firefox) {
+        opts = options.firefox(opts);
+      }
+      builder.setFirefoxOptions(opts);
     }
-    if (options?.safari) {
-      const opts = new safari.Options();
+    {
+      let opts = new safari.Options();
 
-      builder.setSafariOptions(options.safari(opts));
+      if (options.safari) {
+        opts = options.safari(opts);
+      }
+      builder.setSafariOptions(opts);
     }
 
     const driver = await builder.build();
