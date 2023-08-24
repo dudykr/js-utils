@@ -57,7 +57,7 @@ export async function closeAll(...disposables: Closable[]): Promise<void> {
       if (!disposable) continue;
 
       if (Array.isArray(disposable)) {
-        await closeAll(disposable);
+        await closeAll(...disposable);
       } else {
         await disposable.close();
       }
