@@ -7,8 +7,20 @@
     },
     "build:tsc": {
       "dependsOn": ["topo"],
-      "inputs": ["lib/**/*.ts", "lib/**/*.tsx"],
-      "outputs": ["lib/**/*.js", "lib/**/*.d.ts", "lib/**/*.map"]
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.tsx",
+        "tests/**/*.ts",
+        "tests/**/*.tsx"
+      ],
+      "outputs": [
+        "lib/**/*.js",
+        "lib/**/*.d.ts",
+        "lib/**/*.map",
+        "tests/**/*.js",
+        "tests/**/*.d.ts",
+        "tests/**/*.map"
+      ]
     },
     "build:test": {
       "dependsOn": ["build:tsc", "^build:tsc"]
