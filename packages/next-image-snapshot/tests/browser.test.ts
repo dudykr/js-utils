@@ -37,10 +37,7 @@ describe("Browser", () => {
 
         const screenshot = await browser.driver.takeScreenshot();
 
-        expect(screenshot).toMatchImageSnapshot({
-          customSnapshotIdentifier: browser.name,
-          allowSizeMismatch: true,
-        });
+        expect(screenshot).toMatchImageSnapshot(browser.name);
       }
     });
   });
