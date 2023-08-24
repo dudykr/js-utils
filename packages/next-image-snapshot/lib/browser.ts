@@ -29,7 +29,7 @@ export class Browser {
     );
   }
 
-  public async render(pathname: string): Promise<RenderedPage> {
+  public async load(pathname: string): Promise<RenderedPage> {
     console.log(`Rendering ${pathname}...`);
 
     await this.driver.get(this.server.getUrl(pathname));

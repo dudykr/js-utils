@@ -19,7 +19,7 @@ describe("Browser", () => {
   describe("proof of concepts", () => {
     it("works", async () => {
       for (const browser of browsers) {
-        await browser.render("/");
+        await browser.load("/");
 
         const screenshot = await browser.driver.takeScreenshot();
 
