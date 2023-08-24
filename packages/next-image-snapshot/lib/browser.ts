@@ -10,6 +10,10 @@ import edge from "selenium-webdriver/edge";
 type Mapper<T> = (value: T) => T;
 
 type BrowserOptions = {
+  common?: {
+    headless?: boolean;
+  };
+
   chrome?: Mapper<import("selenium-webdriver/chrome").Options>;
   firefox?: Mapper<import("selenium-webdriver/firefox").Options>;
   safari?: Mapper<import("selenium-webdriver/safari").Options>;
@@ -36,7 +40,10 @@ export class Browser {
     const builder = new Builder().forBrowser(browser);
 
     if (options?.chrome) {
-      const opts = new chrome.Options();
+      let opts = new chrome.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
       builder.setChromeOptions(options.chrome(opts));
     }
     if (options?.ie) {
@@ -44,15 +51,24 @@ export class Browser {
       builder.setIeOptions(options.ie(opts));
     }
     if (options?.edge) {
-      const opts = new edge.Options();
+      let opts = new edge.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
       builder.setEdgeOptions(options.edge(opts));
     }
     if (options?.firefox) {
-      const opts = new firefox.Options();
+      let opts = new firefox.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
       builder.setFirefoxOptions(options.firefox(opts));
     }
     if (options?.safari) {
-      const opts = new safari.Options();
+      let opts = new safari.Options();
+      if (options?.common?.headless) {
+        opts = opts.headless();
+      }
       builder.setSafariOptions(options.safari(opts));
     }
 
