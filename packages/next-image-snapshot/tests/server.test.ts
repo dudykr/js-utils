@@ -2,6 +2,7 @@ import { describe, it, beforeEach, afterEach, expect } from "@jest/globals";
 import { NextTestServer } from "../lib/next-server.js";
 import "jest-expect-image";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
+import { closeAll } from "lib/index.js";
 
 describe("NextTestServer", () => {
   let driver!: Awaited<ThenableWebDriver>;
@@ -19,7 +20,7 @@ describe("NextTestServer", () => {
   });
 
   afterEach(async () => {
-    await server.close();
+    await closeAll(driver, server);
   });
 
   describe("proof of concepts", () => {
