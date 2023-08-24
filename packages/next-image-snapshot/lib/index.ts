@@ -34,7 +34,10 @@ type Close = {
   close(): PromiseLike<void>;
 };
 
-export type Closable = undefined | Close | Close[];
+/**
+ * Falsy values will be ignored.
+ */
+export type Closable = undefined | false | 0 | Close | Close[];
 /**
  *  Closes every disposable in order, while catching and aggregating all errors.
  *
