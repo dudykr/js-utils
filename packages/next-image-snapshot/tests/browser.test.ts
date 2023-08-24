@@ -16,6 +16,10 @@ describe("Browser", () => {
     browsers = await Browser.all(server, ["chrome", "firefox"]);
   });
 
+  afterEach(async () => {
+    await closeAll(browsers, server);
+  });
+
   describe("proof of concepts", () => {
     it("works", async () => {
       for (const browser of browsers) {
@@ -27,16 +31,28 @@ describe("Browser", () => {
       }
     });
   });
-
-  afterEach(async () => {
-    await closeAll(browsers, server);
-  });
 });
 
 describe("Browser.all()", () => {
+  let server!: NextTestServer;
+
+  beforeEach(async () => {
+    server = await NextTestServer.create({
+      dir: "./examples/next-app",
+      dev: true,
+    });
+  });
+
+  afterEach(async () => {
+    await closeAll(server);
+  });
+
   describe("when a browser is not installed", () => {
     it("should throw an error", async () => {});
 
-    it("should close other browsers", async () => {});
+    it("should close other browsers", async () => {
+      // TODO: Check browsers
+      await Browser.all(server, ["chrome", "firefox"]);
+    });
   });
 });
