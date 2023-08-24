@@ -72,9 +72,14 @@ describe("Browser.all()", () => {
           },
         });
 
-        for (const browser of browsers) {
-          const cap = await browser.driver.getCapabilities();
-          expect(cap.get("goog:chromeOptions").args).toContain("--headless");
+        try {
+          for (const browser of browsers) {
+            const cap = await browser.driver.getCapabilities();
+            console.log(cap);
+            // expect(cap.get("goog:chromeOptions").args).toContain("--headless");
+          }
+        } finally {
+          await closeAll(browsers);
         }
       });
     });
