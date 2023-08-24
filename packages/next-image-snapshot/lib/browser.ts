@@ -12,6 +12,10 @@ type Mapper<T> = (value: T) => T;
 type BrowserOptions = {
   common?: {
     headless?: boolean;
+    /**
+     * Defaults to 800x600
+     */
+    size?: { width: number; height: number };
   };
 
   chrome?: Mapper<import("selenium-webdriver/chrome").Options>;
@@ -90,12 +94,22 @@ export class Browser {
     browser: string,
     options?: BrowserOptions,
   ): Promise<Browser> {
+    options ??= {};
+    options.common ??= {};
+    options.common.size ??= {
+      width: 800,
+      height: 600,
+    };
+
     const builder = new Builder().forBrowser(browser);
 
     if (options?.chrome) {
       let opts = new chrome.Options();
       if (options?.common?.headless) {
         opts = opts.headless();
+      }
+      if (options.common.size) {
+        opts = opts.windowSize(options.common.size);
       }
       builder.setChromeOptions(options.chrome(opts));
     }
@@ -108,6 +122,9 @@ export class Browser {
       if (options?.common?.headless) {
         opts = opts.headless();
       }
+      if (options.common.size) {
+        opts = opts.windowSize(options.common.size);
+      }
       builder.setEdgeOptions(options.edge(opts));
     }
     if (options?.firefox) {
@@ -115,11 +132,13 @@ export class Browser {
       if (options?.common?.headless) {
         opts = opts.headless();
       }
+      if (options.common.size) {
+        opts = opts.windowSize(options.common.size);
+      }
       builder.setFirefoxOptions(options.firefox(opts));
     }
     if (options?.safari) {
       const opts = new safari.Options();
-
       builder.setSafariOptions(options.safari(opts));
     }
 
