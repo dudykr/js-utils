@@ -30,21 +30,25 @@ export async function renderAppPage<P extends NextAppPage>(
   return {};
 }
 
-export type Closable = AsyncDisposable | AsyncDisposable[];
+type Close = {
+  close(): PromiseLike<void>;
+};
+
+export type Closable = Close | Close[];
 /**
  *  Closes every disposable in order, while catching and aggregating all errors.
  *
  *  If an array exists in disposables, all elements of the array will be closed in parallel.
  */
-export async function disposeAll(...disposables: Closable[]): Promise<void> {
+export async function closeAll(...disposables: Closable[]): Promise<void> {
   const errors: unknown[] = [];
 
   for (const disposable of disposables) {
     try {
       if (Array.isArray(disposable)) {
-        await disposeAll(disposable);
+        await closeAll(disposable);
       } else {
-        await disposable[Symbol.asyncDispose]();
+        await disposable.close();
       }
     } catch (e: unknown) {
       errors.push(e);
