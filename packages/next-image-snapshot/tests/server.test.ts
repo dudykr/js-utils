@@ -19,7 +19,17 @@ describe("NextTestServer", () => {
   beforeEach(async () => {
     const builder = new Builder().forBrowser("chrome");
     driver = await builder
-      .setChromeOptions(new chrome.Options().headless())
+      .setChromeOptions(
+        new chrome.Options()
+          .headless()
+          .addArguments(
+            "--no-sandbox",
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "disable-infobars",
+            "--disable-extensions",
+          ),
+      )
       .build();
   });
 
