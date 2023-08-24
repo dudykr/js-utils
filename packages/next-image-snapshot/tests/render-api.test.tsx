@@ -26,7 +26,10 @@ describe("renderPage", () => {
 
   describe("api", () => {
     it("works", async () => {
-      await renderPage(() => import("../examples/next-app/app/page.jsx"));
+      await renderPage(
+        server,
+        () => import("../examples/next-app/app/page.jsx"),
+      );
 
       for (const browser of browsers) {
         await browser.load("/");
