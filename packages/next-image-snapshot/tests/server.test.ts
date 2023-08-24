@@ -3,6 +3,7 @@ import { NextTestServer } from "../lib/next-server.js";
 import "jest-expect-image";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
 import { closeAll } from "../lib/index.js";
+import chrome from "selenium-webdriver/chrome";
 
 describe("NextTestServer", () => {
   let driver!: Awaited<ThenableWebDriver>;
@@ -18,7 +19,7 @@ describe("NextTestServer", () => {
   beforeEach(async () => {
     const builder = new Builder().forBrowser("chrome");
     driver = await builder
-      .setChromeOptions(builder.getChromeOptions().headless())
+      .setChromeOptions(new chrome.Options().headless())
       .build();
   });
 
