@@ -1,6 +1,6 @@
 /** @type import('jest').Config */
 module.exports = {
-  preset: "jest-puppeteer",
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   transform: {
     "^.+\\.(t|j)sx?$": "@swc/jest",
   },

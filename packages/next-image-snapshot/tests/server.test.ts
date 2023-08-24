@@ -1,10 +1,11 @@
 import { describe, it, beforeEach, afterEach, expect } from "@jest/globals";
 import { NextTestServer } from "../lib/next-server.js";
 import "jest-expect-image";
-
-declare let page: any;
+import { Builder, ThenableWebDriver } from "selenium-webdriver";
+import { closeAll } from "../lib/index.js";
 
 describe("NextTestServer", () => {
+  let driver!: Awaited<ThenableWebDriver>;
   let server!: NextTestServer;
 
   beforeEach(async () => {
@@ -14,18 +15,22 @@ describe("NextTestServer", () => {
     });
   });
 
+  beforeEach(async () => {
+    driver = await new Builder().forBrowser("chrome").build();
+  });
+
+  afterEach(async () => {
+    await closeAll(driver, server);
+  });
+
   describe("proof of concepts", () => {
     it("works", async () => {
       console.log(`Url: ${server.getUrl("/")}`);
 
-      await page.goto(server.getUrl("/"));
-      const image = await page.screenshot();
+      await driver.get(server.getUrl("/"));
+      const image = await driver.takeScreenshot();
 
       expect(image).toMatchImageSnapshot();
     });
-  });
-
-  afterEach(async () => {
-    await server.close();
   });
 });
