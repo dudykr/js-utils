@@ -31,9 +31,12 @@ export class Browser {
       browsers.map((browser) => Browser.create(server, browser)),
     );
 
+    // This will close all browsers if an error occurs.
     if (built.some((result) => result.status === "rejected")) {
       await closeAll(built.map((result) => "value" in result && result.value));
     }
+
+    // `await` above will make this code path unreachable if an error occurs.
 
     return built.map((result) => {
       if (result.status === "fulfilled") {
