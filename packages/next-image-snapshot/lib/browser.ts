@@ -2,6 +2,13 @@ import { RenderedPage, closeAll } from "./index.js";
 import { NextTestServer } from "./next-server.js";
 import { Builder, ThenableWebDriver } from "selenium-webdriver";
 
+type BrowserOptions = {
+  chrome?: import("selenium-webdriver/chrome").Options;
+  ie?: import("selenium-webdriver/ie").Options;
+  edge?: import("selenium-webdriver/edge").Options;
+  firefox?: import("selenium-webdriver/firefox").Options;
+};
+
 /**
  * An instance of browser which is bound to a [NextTestServer]
  */
@@ -14,8 +21,24 @@ export class Browser {
   public static async create(
     server: NextTestServer,
     browser: string,
+    options?: BrowserOptions,
   ): Promise<Browser> {
-    const driver = await new Builder().forBrowser(browser).build();
+    const builder = new Builder().forBrowser(browser);
+
+    if (options?.chrome) {
+      builder.setChromeOptions(options.chrome);
+    }
+    if (options?.ie) {
+      builder.setIeOptions(options.ie);
+    }
+    if (options?.edge) {
+      builder.setEdgeOptions(options.edge);
+    }
+    if (options?.firefox) {
+      builder.setFirefoxOptions(options.firefox);
+    }
+
+    const driver = await builder.build();
 
     return new Browser(server, driver);
   }
@@ -26,9 +49,10 @@ export class Browser {
   public static async all(
     server: NextTestServer,
     browsers: string[],
+    options?: BrowserOptions,
   ): Promise<Browser[]> {
     const built = await Promise.allSettled(
-      browsers.map((browser) => Browser.create(server, browser)),
+      browsers.map((browser) => Browser.create(server, browser, options)),
     );
 
     // This will close all browsers if an error occurs.

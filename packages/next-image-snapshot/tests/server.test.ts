@@ -16,7 +16,10 @@ describe("NextTestServer", () => {
   });
 
   beforeEach(async () => {
-    driver = await new Builder().forBrowser("chrome").build();
+    const builder = new Builder().forBrowser("chrome");
+    driver = await builder
+      .setChromeOptions(builder.getChromeOptions().headless())
+      .build();
   });
 
   afterEach(async () => {
