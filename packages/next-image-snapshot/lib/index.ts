@@ -36,7 +36,7 @@ export type Closable = AsyncDisposable | AsyncDisposable[];
  *
  *  If an array exists in disposables, all elements of the array will be closed in parallel.
  */
-export async function disposeAll(disposables: Closable[]): Promise<void> {
+export async function disposeAll(...disposables: Closable[]): Promise<void> {
   const errors: unknown[] = [];
 
   for (const disposable of disposables) {
