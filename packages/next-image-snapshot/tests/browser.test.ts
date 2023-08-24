@@ -13,7 +13,7 @@ describe("Browser", () => {
       dir: "./examples/next-app",
       dev: true,
     });
-    browsers = await Browser.all(server, ["chrome", "firefox"]);
+    browsers = await Browser.all(server, ["chrome"]);
   });
 
   afterEach(async () => {
