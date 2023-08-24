@@ -36,5 +36,7 @@ describe("Browser", () => {
 describe("Browser.all()", () => {
   describe("when a browser is not installed", () => {
     it("should throw an error", async () => {});
+
+    it("should close other browsers", async () => {});
   });
 });
