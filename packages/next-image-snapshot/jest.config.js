@@ -1,6 +1,6 @@
 /** @type import('jest').Config */
 module.exports = {
-  testRegex: "/tests/.*|(\\.|/)(test|spec))\\.tsx?$",
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   transform: {
     "^.+\\.(t|j)sx?$": "@swc/jest",
   },
