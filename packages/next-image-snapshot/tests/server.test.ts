@@ -32,6 +32,7 @@ describe("NextTestServer", () => {
             "--disable-dev-shm-usage",
             "disable-infobars",
             "--disable-extensions",
+            "--force-device-scale-factor=1",
           ),
       )
       .build();
