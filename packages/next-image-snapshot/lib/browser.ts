@@ -8,7 +8,7 @@ import { Builder, ThenableWebDriver } from "selenium-webdriver";
 export class Browser {
   constructor(
     private readonly server: NextTestServer,
-    private readonly driver: Awaited<ThenableWebDriver>,
+    public readonly driver: Awaited<ThenableWebDriver>,
   ) {}
 
   public static async create(
@@ -35,5 +35,13 @@ export class Browser {
     await this.driver.get(this.server.getUrl(pathname));
 
     return {};
+  }
+
+  public async [Symbol.asyncDispose]() {
+    await this.driver.quit();
+  }
+
+  public async close() {
+    await this.driver.quit();
   }
 }
