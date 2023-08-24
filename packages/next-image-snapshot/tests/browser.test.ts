@@ -1,7 +1,7 @@
 import { describe, it, beforeEach, afterEach, expect } from "@jest/globals";
 import { NextTestServer } from "../lib/next-server.js";
 import "jest-expect-image";
-import { Browser } from "lib/browser.js";
+import { Browser } from "../lib/browser.js";
 
 describe("Browser", () => {
   let browsers!: Browser[];
