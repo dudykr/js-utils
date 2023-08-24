@@ -22,6 +22,10 @@ describe("NextTestServer", () => {
       .setChromeOptions(
         new chrome.Options()
           .headless()
+          .windowSize({
+            width: 800,
+            height: 600,
+          })
           .addArguments(
             "--no-sandbox",
             "--disable-gpu",
