@@ -10,18 +10,18 @@
       "inputs": ["lib/**/*.ts", "lib/**/*.tsx"],
       "outputs": ["lib/**/*.js", "lib/**/*.d.ts", "lib/**/*.map"]
     },
-    "build": {
+    "build:test": {
       "dependsOn": ["build:tsc", "^build:tsc"]
     },
 
     "lint": {},
     "test": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build:test"],
       "cache": false,
       "persistent": true
     },
     "test:ci": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build:test"]
     }
   }
 }
