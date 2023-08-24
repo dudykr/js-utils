@@ -11,6 +11,11 @@ type Mapper<T> = (value: T) => T;
 
 type BrowserOptions = {
   common?: {
+    /**
+     * Defaults to false. If this is false, the CI mode will be enabled automatically by default.
+     */
+    noCIMode?: boolean;
+
     headless?: boolean;
     /**
      * Defaults to 800x600
@@ -110,6 +115,15 @@ export class Browser {
       }
       if (options.common.size) {
         opts = opts.windowSize(options.common.size);
+      }
+      if (!options.common.noCIMode) {
+        opts = opts.addArguments(
+          "--no-sandbox",
+          "--disable-gpu",
+          "--disable-dev-shm-usage",
+          "disable-infobars",
+          "--disable-extensions",
+        );
       }
       builder.setChromeOptions(options.chrome(opts));
     }
