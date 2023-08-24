@@ -17,8 +17,8 @@ describe("Browser", () => {
       common: {
         headless: true,
         size: {
-          width: 400,
-          height: 300,
+          width: 1080,
+          height: 720,
         },
       },
       chrome: (options) => options.headless(),
@@ -30,7 +30,7 @@ describe("Browser", () => {
     await closeAll(browsers, server);
   });
 
-  describe("proof of concepts", () => {
+  describe("screenshot", () => {
     it("works", async () => {
       for (const browser of browsers) {
         await browser.load("/");
