@@ -27,7 +27,7 @@ describe("Browser", () => {
 
         const screenshot = await browser.driver.takeScreenshot();
 
-        expect(screenshot).toMatchSnapshot();
+        expect(screenshot).toMatchImageSnapshot();
       }
     });
   });
