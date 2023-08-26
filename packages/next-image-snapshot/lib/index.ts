@@ -23,10 +23,23 @@ export interface RenderedPage {
   readonly url: string;
 }
 
-export async function renderPage<P extends NextNormalPage>(
+export interface RenderedFile extends RenderedPage {
+  readonly server: NextTestServer;
+}
+
+const libraryPrefix = "next-image-snapshot";
+
+export async function render(
+  server: NextTestServer,
+  element: JSX.Element,
+): Promise<RenderedFile> {
+  return {};
+}
+
+export async function renderPagesPage<P extends NextNormalPage>(
   server: NextTestServer,
   page: () => Promise<P>,
-): Promise<RenderedPage> {
+): Promise<RenderedFile> {
   await page();
 
   return {};
@@ -35,7 +48,7 @@ export async function renderPage<P extends NextNormalPage>(
 export async function renderAppPage<P extends NextAppPage>(
   server: NextTestServer,
   page: () => Promise<P>,
-): Promise<RenderedPage> {
+): Promise<RenderedFile> {
   await page();
 
   return {};
